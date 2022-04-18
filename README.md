@@ -1,5 +1,7 @@
 # mycode (Let's code...)
 #I'm wanting to learn how to version control with git.
+#I do need to practice this whole git repo thing to better help me in the future.
+#Self note: Do not edit things from Github webpages. Only use the CLI for practice.
 
 One Paragraph of your project description goes here. Describe what you're trying to do.
 What is the purpose of putting up this repo?
