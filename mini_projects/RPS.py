@@ -16,6 +16,11 @@ while True:
     opponent = random.choice(weapon)
 
 #Let the match begin
+
+    if your_item not in weapon:
+        print("Please choose either rock, paper or scissors\n")
+        continue
+
     print(f"\nYou chose {your_item}, opponent chose {opponent}.\n")
 
     if your_item == opponent:
@@ -35,7 +40,6 @@ while True:
             print("A crushing blow, YOU LOSE!")
         else:
             print("Scissors master, YOU WIN!")
-
 
     one_more_round = input("Challenge another opponent? (y/n): ").lower()
     if one_more_round.lower() != "y":
