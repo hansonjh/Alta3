@@ -160,14 +160,11 @@ while True:
   
   ## Define how a player can win
   if currentRoom == 'The lookout' and ball_count == 7 and 'buu' not in rooms['Tourney grounds']:
-    wish = input('***You summon Shenron***\nShenron roars! TELL ME YOUR WISH... ') #type your wish here
+    wish = input('***You summon Shenron-he ROARS!***\nTELL ME YOUR WISH... ') #type your wish here
     print("That is out of my power, but I can can give these project makers an A+")
     break
+  #must complete onjectives before winning
   elif currentRoom == 'The lookout' and 'buu' in rooms['Tourney grounds']:
     print("You must defeat Buu before making your wish!")
   
 
-  ## If a player enters a room with a monster
-  #elif 'item' in rooms[currentRoom] and 'monster' in rooms[currentRoom]['item']:
-   # print('A monster has got you... GAME OVER!')
-    #break
