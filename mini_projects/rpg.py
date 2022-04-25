@@ -163,8 +163,8 @@ while True:
     wish = input('***You summon Shenron***\nShenron roars! TELL ME YOUR WISH... ') #type your wish here
     print("That is out of my power, but I can can give these project makers an A+")
     break
-  else:
-      print("You must defeat Buu before making your wish!")
+  elif currentRoom == 'The lookout' and 'buu' in rooms['Tourney grounds']:
+    print("You must defeat Buu before making your wish!")
   
 
   ## If a player enters a room with a monster
