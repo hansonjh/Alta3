@@ -34,7 +34,7 @@ def showStatus():
   if "buu" in rooms[currentRoom]:
       print('You see Majin Buu ready to battle')
   if "sword" in rooms[currentRoom]:
-      print('That Z Sword night come in handy')
+      print('That Z Sword might come in handy')
   print("---------------------------")
 
 #starting inventory
