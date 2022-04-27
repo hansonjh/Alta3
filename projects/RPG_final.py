@@ -6,43 +6,33 @@
 
 '''
 *** TO DO ***
+> Add help option to show instructions (222 - 223)
+> Add description of each room (line 216 - 220)
 > Add fancy banners?...
 > move action print to status
-> health system
+> health system (199 - 202)
 > attack system
 > make getting DB a bit trickier
 > create classes--stored in class.py doc
 '''
 import random
+import dice
+import sys
+import os
 
+def rolldice(min,max):
+    print("Rolling dice...")
+    global rollnum
+    rollnum= random.randint(min,max)
+   # input('What is you guess bewteen 1 and 6? ')
 
-"""
-class Player:
-    def __init__(self):
-        self.hp = 50
-        self.att = 0
-        self.speed = 50
-    def bean(self):
-        self.hp == 50
-    def sword(self):
-        damage= 100 + self.att
-        Buu.hp -= damage
+#global rollnum
 
-class Villain:
-    def __init__(self):
-        self.hp = 100
-        self.att = 40
-        self.speed = 50
-
-Goku= Player()
-Buu= Villain()
-"""
-
-def damageroll(min, max):
-    while True:
-        global dmgroll
-        dmgroll = random.randint(min, max)
-damageroll(45, 100)
+#def damageroll(min, max):
+#    while True:
+#        global dmgroll
+#        dmgroll = random.randint(min, max)
+#damageroll(45, 100)
 
 def showInstructions():
   #print a main menu and the commands
@@ -58,26 +48,31 @@ Commands:
   get [item]
   use [item]
   teleport 'tele' [location]
+  look
+  help
+  quit
   ''')
 
 def showStatus():
     #print the player's current status
-    print('---------------------------')
+    print('---------------------------------------------')
     print('You are in the ' + currentRoom)
     #print the current inventory
     print('Inventory : ' + str(inventory))
     #Print current health
     print('your current health is', health)
     #print an item or object if there is one
-    if "item" in rooms[currentRoom]:
-        print('You see a ' + rooms[currentRoom]['item'])
+    if "ball" in rooms[currentRoom]:
+        print('You see a ' + rooms[currentRoom]['ball'])
+    if "ball4" in rooms[currentRoom]:
+        print('You see a ' + rooms[currentRoom]['ball4']) 
     if "buu" in rooms[currentRoom]:
         print('You see Majin Buu ready to battle')
     if 'bean' in rooms[currentRoom]:
         print('You see a ' + rooms[currentRoom]['bean'])
     if 'zsword' in rooms[currentRoom]:
         print('You see the  Zsword it might come in handy')
-    print("---------------------------")
+    print("---------------------------------------------")
 
 #starting inventory
 inventory = ['Dragon radar']
@@ -98,35 +93,37 @@ rooms = {
             'North city' : {
                   'north' : 'The lookout',
                   'south' : 'Kame house',
-                  'item'  : '1 starball',
+                  'ball'  : '1 starball',
                 },
             'The lookout' : {
                   'south': 'North city',
-                  'item' : '3 starball',
+                  'ball' : '3 starball',
                },
             'East city' : {
                   'north' : 'Tourney grounds',
                   'west' : 'Kame house',
-                  'item'  : '7 starball',
+                  'ball'  : '7 starball',
+                  'desc' : 'Welcome to East City, from here you can head north to the Tournanemt Grounds or west to Kame\'s House.' 
                },
             'Tourney grounds' : {
-                   'south' : 'East city',
-                   'item' : '5 starball',
-                   'buu'  : 'Kid buu',
+                  'south' : 'East city',
+                  'ball' : '5 starball',
+                  'buu'  : 'Kid buu',
                },
             'South city' : {
                   'south' : 'Satan city',
                   'north' : 'Kame house',
-                  'item' : '4 starball',
+                  'ball4' : '4 starball',
+                  'desc' : 'You see a conartist playing a dice game in the street. He seems to have a dragon ball with him! Beat the conartist to get the ball!'
                },
             'Satan city' : {
                   'north' : 'South city',
-                  'item' : '6 starball',
+                  'ball' : '6 starball',
                },
             'West city' : {
                   'east' : 'Kame house',
                   'south' : 'Forest',
-                  'item' : '2 starball',
+                  'ball' : '2 starball',
                },
             'Forest' : {
                   'north' : 'West city',
@@ -136,6 +133,8 @@ rooms = {
 
 #start at Kame's house
 currentRoom = 'Kame house'
+
+os.system('clear') #after each move/use/get/look/help then wipe the screen
 
 showInstructions()
 
@@ -181,7 +180,7 @@ while True:
     #if they type 'get' first
     if move[0] == 'get':
         #if the room contains an item, and the item is the one they want to get
-        if "item" in rooms[currentRoom] and move[1] in rooms[currentRoom]['item']:
+        if "ball" in rooms[currentRoom] and move[1] in rooms[currentRoom]['ball']:
             #add the item to their inventory
             inventory += [move[1]]
             ball_count += 1
@@ -190,6 +189,27 @@ while True:
             print('you currently have', ball_count,'Dragon balls')
             #delete the item from the room
             del rooms[currentRoom]['item']
+        elif "ball4" in rooms[currentRoom] and move[1] in rooms[currentRoom]["ball4"]:
+            print('''Seems like a fine day in South City! You are searching around for the Dragon Balls when you see a shady man playing a dice game in the street. You walk up to him and see he has the 4 star Dragon Ball! He claims that he will only give you the Dragon Ball if you can guess the number of the die he is rolling!''')
+            gamestart = input("Would you care to play a game? (y/n): ")
+            if gamestart.lower() == "n":
+                break #may need to be continue
+            elif gamestart.lower() == "y":
+                #def rolldice(min,max):
+                 #   print('Rolling the die...')
+                  #  global rollnum
+                   # rollnum = random.randint(min,max)
+                rolldice(1,6)
+                print(rollnum)
+                dieguess = input("Guess a number between 1 and 6! ")
+                if dieguess == rollnum:
+                    print("Hey! You managed to guess right and the shady man gives you the 4 star Dragon Ball")
+                    inventory += [move[1]]
+                    del rooms[currentRoom]["ball4"]
+                elif dieguess != rolldice:
+                    choice = input('Do you want to try again? (y/n): ')
+                    if choice.lower() == 'n':
+                        continue
         elif "zsword" in rooms[currentRoom] and move[1] in rooms[currentRoom]['zsword']:
             #add the item to their inventory
             inventory += [move[1]]
@@ -227,7 +247,26 @@ while True:
             print('You have recovered all of your strength! Let\'s get to the lookout quickly...')
         else:
             print('You don\'t have a weapon strong enough to defeat Buu...')
-  
+    
+    if move[0] == 'look':
+        if 'desc' in rooms[currentRoom]:
+            #print the room description
+            print(rooms[currentRoom]['desc'])
+        else:
+            print('You don\'t see anything.')
+
+    if move[0] == 'help':
+        showInstructions()
+
+    if move[0] in ['q', 'quit]']:
+        print("Are you sure you want to quit? Yes/No")
+        quit_query = input('>')
+        if quit_query.lower() in ['y', 'yes']:
+            print("Thanks for playing!")
+            sys.exit()
+        else:
+            pass
+
      ## Define how a player can win
     if currentRoom == 'The lookout' and ball_count == 7 and 'buu' not in rooms['Tourney grounds']:
         wish = input('***You summon Shenron***\nShenron roars! TELL ME YOUR WISH... ') #type your wish here
