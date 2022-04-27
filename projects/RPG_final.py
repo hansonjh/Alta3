@@ -4,9 +4,45 @@
 #FINAL PROJECT
 # Created by Dalton M. and J H.
 
-from random import randint #use later for final project
-#import dice #use for final
-#import figlet
+'''
+*** TO DO ***
+> Add fancy banners?...
+> move action print to status
+> health system
+> attack system
+> make getting DB a bit trickier
+> create classes--stored in class.py doc
+'''
+import random
+
+
+"""
+class Player:
+    def __init__(self):
+        self.hp = 50
+        self.att = 0
+        self.speed = 50
+    def bean(self):
+        self.hp == 50
+    def sword(self):
+        damage= 100 + self.att
+        Buu.hp -= damage
+
+class Villain:
+    def __init__(self):
+        self.hp = 100
+        self.att = 40
+        self.speed = 50
+
+Goku= Player()
+Buu= Villain()
+"""
+
+def damageroll(min, max):
+    while True:
+        global dmgroll
+        dmgroll = random.randint(min, max)
+damageroll(45, 100)
 
 def showInstructions():
   #print a main menu and the commands
@@ -165,7 +201,7 @@ while True:
             #add bean to inventory
             inventory += [move[1]]
             #delete the bean from dict
-            del room[currentRoom]['bean']
+            del rooms[currentRoom]['bean']
             #display helpful message to mayb use it...
             print(move[1], 'is now in your hand, might be good to use now')
         #otherwise, if the item isn't there to get
@@ -175,12 +211,14 @@ while True:
  
     if move[0] == 'use':
         #check that they are allowed use this item
-        #if move[1] in inventory and rooms[currentRoom]['buu']:
-            #random.randint
-            #health -= 
         if move[1] in inventory and rooms[currentRoom]['buu']:
-            print('The Z Sword was very affective! This is much easier than the series looks.')
-            rooms['Kame house']['bean'] = 'senzu bean' #I hope this adds to the dict
+            damageroll(45, 100)
+           # Goku.sword(Buu) -= dmgroll
+            print('Buu took', [dmgroll], 'damage from the Zsword')
+
+        #if move[1] in inventory and rooms[currentRoom]['buu']:
+            #print('The Z Sword was very affective! This is much easier than the series looks.')
+            rooms['Kame house']['bean'] = 'senzu bean'
             #delete the object from the dict
             del rooms[currentRoom]['buu']
         elif move[1] in inventory:
@@ -199,7 +237,3 @@ while True:
             print("You must defeat Buu before making your wish!")
   
 
-  ## If a player enters a room with a monster
-  #elif 'item' in rooms[currentRoom] and 'monster' in rooms[currentRoom]['item']:
-   # print('A monster has got you... GAME OVER!')
-    #break
