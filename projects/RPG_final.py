@@ -78,7 +78,7 @@ def showStatus():
 inventory = ['Dragon radar']
 
 #staring health
-health = 50
+health = 100
 
 #a dictionary linking a room to other rooms
 #also shows available items and obbjects
@@ -156,7 +156,7 @@ while True:
 
     # split allows an items to have a space on them
     move = move.lower().split(" ", 1)
-
+    os.system('clear') # clear the screen each move
     #if they type 'go' first
     if move[0] == 'go':
         #check that they are allowed wherever they want to go
@@ -242,9 +242,9 @@ while True:
             #delete the object from the dict
             del rooms[currentRoom]['buu']
         elif move[1] in inventory:
-            health = 50
+            health = 100
             del rooms['Kame house']['bean']
-            print('You have recovered all of your strength! Let\'s get to the lookout quickly...')
+            print('You have recovered and your health is back to', health, 'Let\'s get to the lookout quickly...')
         else:
             print('You don\'t have a weapon strong enough to defeat Buu...')
     
