@@ -13,7 +13,6 @@
 > health system (199 - 202)
 > attack system
 > make getting DB a bit trickier
-> create classes--stored in class.py doc
 '''
 import random
 import dice
@@ -24,20 +23,21 @@ def rolldice(min,max):
     print("Rolling dice...")
     global rollnum
     rollnum= random.randint(min,max)
-   # input('What is you guess bewteen 1 and 6? ')
 
-#global rollnum
+#def quizbank():
 
-#def damageroll(min, max):
-#    while True:
-#        global dmgroll
-#        dmgroll = random.randint(min, max)
-#damageroll(45, 100)
 
 def showInstructions():
   #print a main menu and the commands
   print('''
-RPG Game of DragonBallZ
+______                            ______       _ _  ______
+|  _  \                           | ___ \     | | ||___  /
+| | | |_ __ __ _  __ _  ___  _ __ | |_/ / __ _| | |   / / 
+| | | | '__/ _` |/ _` |/ _ \| '_ \| ___ \/ _` | | |  / /  
+| |/ /| | | (_| | (_| | (_) | | | | |_/ / (_| | | |./ /___
+|___/ |_|  \__,_|\__, |\___/|_| |_\____/ \__,_|_|_|\_____/
+                  __/ |                                   
+                 |___/                                    
 =============================
 Collect the Dragon Balls &
 defeat Majin Buu before you
@@ -64,6 +64,8 @@ def showStatus():
     #print an item or object if there is one
     if "ball" in rooms[currentRoom]:
         print('You see a ' + rooms[currentRoom]['ball'])
+    if "ball2" in rooms[currentRoom]:
+        print('You see a ' + rooms[currentRoom]['ball2'])
     if "ball4" in rooms[currentRoom]:
         print('You see a ' + rooms[currentRoom]['ball4']) 
     if "buu" in rooms[currentRoom]:
@@ -88,7 +90,8 @@ rooms = {
                   'north' : 'North city',
                   'south' : 'South city',
                   'east'  : 'East city',
-                  'west'  : 'West city'
+                  'west'  : 'West city',
+                  'desc'  : 'From here you can go any direction you would like to, ex: north, south, east, west'
                 },
             'North city' : {
                   'north' : 'The lookout',
@@ -123,7 +126,7 @@ rooms = {
             'West city' : {
                   'east' : 'Kame house',
                   'south' : 'Forest',
-                  'ball' : '2 starball',
+                  'ball2' : '2 starball',
                },
             'Forest' : {
                   'north' : 'West city',
@@ -140,6 +143,7 @@ showInstructions()
 
 #ball count goes up as you collect dragon balls (7 needed to win)
 ball_count = 0
+grade = 0
 
 #loop forever until you win
 while True:
@@ -189,23 +193,50 @@ while True:
             print('you currently have', ball_count,'Dragon balls')
             #delete the item from the room
             del rooms[currentRoom]['item']
+        elif 'ball2' in rooms[currentRoom] and move[1] in rooms[currentRoom]["ball2"]:
+            print('''You see a showman offering a dragon ball for anyone who can score 80% or above on a Dragon Ball Quiz!''')
+            gamestart = input('Will you accept the challenge? (y/n): ')
+            if gamestart.lower() == 'n':
+                continue
+            elif gamestart.lower() == 'y':
+                print('What race does Goku belong to?')
+                print('''A. Human\nB. Namekian\nC. Saiyan\nD. Monkey''')
+                answer1 = input('> ').lower()
+                if answer1 == 'c' or answer1 == 'saiyan':
+                    print(answer1)
+                    print('Great job! Here is your next question...')
+                    grade += 1
+                    print(grade)
+                else:
+                    print('That is wrong! Next question...')
+                print('Who does Goku fight on Namek?')
+                print('''A. Frieza\nB. Cell\nC. Kami\nD. Beerus''')
+                answer2 = input('> ').lower()
+                if answer2 == 'a' or answer2 == 'frieza':
+                    print('You know your DBZ! Let\' move on...')
+                    grade +=1
+                    print(grade)
+                else:
+                    print('Not even close! Next question...')
+
+
+
         elif "ball4" in rooms[currentRoom] and move[1] in rooms[currentRoom]["ball4"]:
             print('''Seems like a fine day in South City! You are searching around for the Dragon Balls when you see a shady man playing a dice game in the street. You walk up to him and see he has the 4 star Dragon Ball! He claims that he will only give you the Dragon Ball if you can guess the number of the die he is rolling!''')
             gamestart = input("Would you care to play a game? (y/n): ")
             if gamestart.lower() == "n":
-                break #may need to be continue
+                continue
             elif gamestart.lower() == "y":
-                #def rolldice(min,max):
-                 #   print('Rolling the die...')
-                  #  global rollnum
-                   # rollnum = random.randint(min,max)
                 rolldice(1,6)
-                print(rollnum)
-                dieguess = input("Guess a number between 1 and 6! ")
+                #print(rollnum)
+                dieguess = int(input("Guess a number between 1 and 6! "))
                 if dieguess == rollnum:
                     print("Hey! You managed to guess right and the shady man gives you the 4 star Dragon Ball")
                     inventory += [move[1]]
                     del rooms[currentRoom]["ball4"]
+                    ball_count+=1
+                   # print(ball_count)
+                    continue
                 elif dieguess != rolldice:
                     choice = input('Do you want to try again? (y/n): ')
                     if choice.lower() == 'n':
