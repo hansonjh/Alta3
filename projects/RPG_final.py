@@ -8,11 +8,11 @@
 *** TO DO ***
 > Add help option to show instructions (222 - 223)
 > Add description of each room (line 216 - 220)
-> Add fancy banners?...
 > move action print to status
 > health system (199 - 202)
 > attack system
 > make getting DB a bit trickier
+> desc added... maybe add links to DBZ wiki?
 '''
 import random
 import dice
@@ -25,9 +25,6 @@ def rolldice(min,max):
     global rollnum
     rollnum= random.randint(min,max)
 
-
-
-
 def showInstructions():
   #print a main menu and the commands
   print('''
@@ -39,25 +36,26 @@ ______                            ______       _ _  ______
 |___/ |_|  \__,_|\__, |\___/|_| |_\____/ \__,_|_|_|\_____/
                   __/ |                                   
                  |___/                                    
-=============================
-Collect the Dragon Balls &
-defeat Majin Buu before you
-make your wish at the lookout!
-==============================
-Commands:
-  go [ex:north]
-  get [item]
-  use [item]
-  teleport 'tele' [location]
-  look
-  help
-  quit
+================================
+Collect the Dragon Balls &     |
+defeat Majin Buu before you    |
+make your wish at the lookout! |
+================================
+Commands:                      |
+  go [ex:north]                |
+  get [item]                   |
+  use [item]                   |
+  teleport 'tele' [location]   |
+  look                         |
+  help                         |
+  quit                         |
+================================
   ''')
 
 def showStatus():
     #print the player's current status
-    print('---------------------------------------------')
-    print('You are in the ' + currentRoom)
+    print('=' * 60)
+    print(rooms[currentRoom]['desc'])
     #print the current inventory
     print('Inventory : ' + str(inventory))
     #Print current health
@@ -70,12 +68,12 @@ def showStatus():
     if "ball4" in rooms[currentRoom]:
         print('You see a ' + rooms[currentRoom]['ball4']) 
     if "buu" in rooms[currentRoom]:
-        print('You see Majin Buu ready to battle')
+        print('You see Majin Buu ready to battle!!!')
     if 'bean' in rooms[currentRoom]:
         print('You see a ' + rooms[currentRoom]['bean'])
     if 'zsword' in rooms[currentRoom]:
-        print('You see the  Zsword it might come in handy')
-    print("---------------------------------------------")
+        print('WOW the Zsword, this might come in handy later...')
+    print('=' * 60)
 
 #starting inventory
 inventory = ['Dragon radar']
@@ -84,7 +82,7 @@ inventory = ['Dragon radar']
 health = 100
 
 #a dictionary linking a room to other rooms
-#also shows available items and obbjects
+#also shows available items and objects
 rooms = {
 
             'Kame house' : {
@@ -92,17 +90,18 @@ rooms = {
                   'south' : 'South city',
                   'east'  : 'East city',
                   'west'  : 'West city',
-                  'desc'  : 'From here you can go any direction you would like to, ex: north, south, east, west',
+                  'desc'  : "Kame House is a house on a very small island in the middle of the sea.\nIt is the home of Master Roshi, and there he is looking at a naughty magazine in his beach chair...\nGo [north, west, south, east] from here.",
                 },
             'North city' : {
                   'north' : 'The lookout',
                   'south' : 'Kame house',
                   'ball'  : '1 starball',
+                  'desc' : "North City, also known as Metro North, is one of the large metropolis capitals of Earth.\nIt is surrounded by mountains and a forest.\nDr. Gero\'s Laboratory is in the mountains south of the city.\nGo [north, south] from here.",
                 },
             'The lookout' : {
                   'south': 'North city',
                   'ball' : '3 starball',
-                  'desc' : 'From the lookout you can see in any direction and you are amazed!',
+                  'desc' : "The Lookout is an ancient platform that is in geostationary orbit in the skies of Earth,\nand directly above Korin Tower",
                },
             'East city' : {
                   'north' : 'Tourney grounds',
@@ -114,26 +113,29 @@ rooms = {
                   'south' : 'East city',
                   'ball' : '5 starball',
                   'buu'  : 'Kid buu',
+                  'desc' : "The World Martial Arts Tournament originated in a festival held since long ago at the temple which now serves as the tournament grounds",
                },
             'South city' : {
                   'south' : 'Satan city',
                   'north' : 'Kame house',
                   'ball4' : '4 starball',
-                  'desc' : 'You see a conartist playing a dice game in the street. He seems to have a dragon ball with him! Beat the conartist to get the ball!',
+                  'desc' : 'Welcome to South city a great place to pass through. So hurry and keep heading south to move on...',
                },
             'Satan city' : {
                   'north' : 'South city',
                   'ball' : '6 starball',
+                  'desc' : 'Welcome to Satan city, if you look around you might see Hercule acting the fool.\nUnfortunatly, the only place to go is back the way you came.',
                },
             'West city' : {
                   'east' : 'Kame house',
                   'south' : 'Forest',
                   'ball2' : '2 starball',
+                  'desc' : 'West city is mostly known as the hometown of Bulma and the headquarters of Capsule Corporation.\nDue to its apparent wealth, the city quickly recovers from most incidents, such as being a target of Majin Buu.',
                },
             'Forest' : {
                   'north' : 'West city',
                   'zsword': 'zsword',
-                  'desc'  : 'You see something shimmering in the brush near a great Pine tree...'
+                  'desc'  : 'You stumble into a random forest and see something shimmering as it extends from the top of a rock...'
             }
          }
 
@@ -170,8 +172,6 @@ while True:
         if move[1] in rooms[currentRoom]:
             #set the current room to the new room
             currentRoom = rooms[currentRoom][move[1]]
-            if 'desc' in rooms[currentRoom]:
-                print(rooms[currentRoom]['desc']) #print the room description if there is one.
         #trying to make buu attack
             if 'buu' in currentRoom:
                 health -= 10
