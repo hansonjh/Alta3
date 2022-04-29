@@ -38,7 +38,7 @@ dbz_questions= {
 ]
 },
 {
-"question": "What is the name of Goku\’s grandfather?",
+"question": "What is the name of Goku\'s grandfather?",
 "correct_answer": "Gohan",
 "incorrect_answers": [
 "Nappa",

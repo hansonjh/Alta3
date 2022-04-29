@@ -5,13 +5,16 @@
 # Created by Dalton M. and J H.
 
 '''
-*** TO DO ***
+********** TO DO **********
 > Add help option to show instructions (222 - 223)
 > Add description of each room (line 216 - 220)
 > move action print to status
 > health system (199 - 202)
 > attack system
+> PROBLEM using bean!!!!
 > make getting DB a bit trickier
+> make it so the 5 starball falls out of buu when deadi
+> add 'crushing wall' using a timer? or add timer to a game..
 > desc added... maybe add links to DBZ wiki?
 '''
 import random
@@ -197,7 +200,7 @@ while True:
             print(move[1] + ' grabbed!')
             print('you currently have', ball_count,'Dragon Balls')
             #delete the item from the room
-            del rooms[currentRoom]['item']
+            del rooms[currentRoom]['ball']
         elif 'ball2' in rooms[currentRoom] and move[1] in rooms[currentRoom]["ball2"]:
             print('''You see a showman offering a Dragon Ball for anyone who can score 80% or above on a Dragon Ball quiz!''')
             gamestart = input('Will you accept the challenge? (y/n): ')
@@ -210,16 +213,16 @@ while True:
                     print(f"{counter}. {x['question']}")
                     counter += 1
                     all_answers= x["incorrect_answers"]
-                    all_answers.append(x['correct_answer'])
+                    all_answers.append(x['correct_answer']) #.lower()
                     random.shuffle(all_answers)
                     letters= ["A. ","B. ","C. ","D. "]
                     block= {}
-                    for letter,answer in zip(letters,all_answers):
+                    for letter,answer in zip(letters,all_answers):#.lower():
                         print(letter, answer)
                         block.update({letter:answer})
                    #print(block)
-                    answer= input("\n>")
-                    if answer == x['correct_answer']:
+                    answer= input("\n>")#.lower()
+                    if answer == x['correct_answer']: #add so lettes can be choosen along with words
                         grade +=1
                         print("Correct!")
                         print()
@@ -243,19 +246,22 @@ while True:
                 continue
             elif gamestart.lower() == "y":
                 rolldice(1,6)
-                #print(rollnum)
+                print(rollnum)
                 dieguess = int(input("Guess a number between 1 and 6! "))
                 if dieguess == rollnum:
                     print("Hey! You managed to guess right and the shady man gives you the 4 star Dragon Ball")
                     inventory += [move[1]]
                     del rooms[currentRoom]["ball4"]
                     ball_count += 1
-                   # print(ball_count)
+                    print(ball_count)
                     continue
                 elif dieguess != rolldice:
                     choice = input('Do you want to try again? (y/n): ')
                     if choice.lower() == 'n':
                         continue
+        #Fix this area so if 'y' is choosen then it goes back to dieguess
+
+
         elif "zsword" in rooms[currentRoom] and move[1] in rooms[currentRoom]['zsword']:
             #add the item to their inventory
             inventory += [move[1]]
@@ -277,30 +283,27 @@ while True:
  
     if move[0] == 'use':
         #check that they are allowed use this item
-        if move[1] in inventory and rooms[currentRoom]['buu']:
-            damageroll(45, 100)
-           # Goku.sword(Buu) -= dmgroll
-            print('Buu took', [dmgroll], 'damage from the Zsword')
-
-        #if move[1] in inventory and rooms[currentRoom]['buu']:
-            #print('The Z Sword was very affective! This is much easier than the series looks.')
+        if move[1] == 'sword' and rooms[currentRoom]['buu']:
+            print('The Z Sword was very affective! This is much easier than the series looks.')
             rooms['Kame house']['bean'] = 'senzu bean'
             #delete the object from the dict
             del rooms[currentRoom]['buu']
-        elif move[1] in inventory:
+        else:
+            print('You don\'t have a weapon strong enough to defeat Buu...')
+        if move[1] == 'bean':
             health = 100
             del rooms['Kame house']['bean']
             print('You have recovered and your health is back to', health, 'Let\'s get to the lookout quickly...')
-        else:
-            print('You don\'t have a weapon strong enough to defeat Buu...')
-    
+        #else:
+            #print('You don\'t have a weapon strong enough to defeat Buu...')
+   #look broken and references line 187 
     if move[0] == 'look':
         if 'desc' in rooms[currentRoom]:
             #print the room description
             print(rooms[currentRoom]['desc'])
         else:
             print('You don\'t see anything.')
-
+    #help also broken and error looks at line 187?...
     if move[0] == 'help':
         showInstructions()
 
@@ -318,7 +321,7 @@ while True:
         wish = input('***You summon Shenron***\nShenron roars! TELL ME YOUR WISH... ') #type your wish here
         print("That is out of my power, but I can can give these project makers passing score!")
         break
-        if currentRoom == 'The lookout' and ball_count == 7 and 'buu' in rooms['Tourney grounds']:
-            print("You must defeat Majin Buu before making your wish!")
+    if currentRoom == 'The lookout' and ball_count == 7 and 'buu' in rooms['Tourney grounds']:
+        print("You must defeat Majin Buu before making your wish!")
   
 
