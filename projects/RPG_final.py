@@ -8,10 +8,10 @@
 ********** TO DO **********
 > Add help option to show instructions (222 - 223)
 > Add description of each room (line 216 - 220)
-> move action print to status
 > health system (199 - 202)
 > attack system
 > PROBLEM using bean!!!!
+> make ball appear after beating Buu....
 > make getting DB a bit trickier
 > make it so the 5 starball falls out of buu when deadi
 > add 'crushing wall' using a timer? or add timer to a game..
@@ -28,6 +28,13 @@ def rolldice(min,max):
     global rollnum
     rollnum= random.randint(min,max)
 
+# get the width ("columns") of the screen
+size = os.get_terminal_size()
+# convert object to list
+sizelist= list(size)
+# element 0 is the width in columns; multiply times whatever
+# character (=,*,&,etc.) to fill the width of the screen!
+
 def showInstructions():
   #print a main menu and the commands
   print('''
@@ -40,43 +47,43 @@ ______                            ______       _ _  ______
                   __/ |                                   
                  |___/                                    
 ================================
-Collect the Dragon Balls &     |
-defeat Majin Buu before you    |
-make your wish at the lookout! |
+|Collect the Dragon Balls &    |
+|defeat Majin Buu before you   |
+|make your wish at the lookout!|
 ================================
-Commands:                      |
-  go [ex:north]                |
-  get [item]                   |
-  use [item]                   |
-  teleport 'tele' [location]   |
-  look                         |
-  help                         |
-  quit                         |
+|Commands:                     |
+|  go [ex:north]               |
+|  get [item]                  |
+|  use [item]                  |
+|  teleport 'tele' [location]  |
+|  look                        |
+|  help                        |
+|  quit                        |
 ================================
   ''')
 
 def showStatus():
     #print the player's current status
-    print('=' * 60)
-    print(rooms[currentRoom]['desc'])
+    print("=" * sizelist[0])
+    print(rooms[currentRoom]['desc'],'\n')
     #print the current inventory
-    print('Inventory : ' + str(inventory))
+    print('Inventory : ' + str(inventory),'\n')
     #Print current health
-    print('your current health is', health)
+    print('your current health is', health,'\n')
     #print an item or object if there is one
     if "ball" in rooms[currentRoom]:
-        print('You see a ' + rooms[currentRoom]['ball'])
+        print('You see a ' + rooms[currentRoom]['ball'],'\n')
     if "ball2" in rooms[currentRoom]:
-        print('You see a ' + rooms[currentRoom]['ball2'])
+        print('You see a ' + rooms[currentRoom]['ball2'],'\n')
     if "ball4" in rooms[currentRoom]:
-        print('You see a ' + rooms[currentRoom]['ball4']) 
+        print('You see a ' + rooms[currentRoom]['ball4'],'\n') 
     if "buu" in rooms[currentRoom]:
-        print('You see Majin Buu ready to battle!!!')
+        print('You see Majin Buu ready to battle!!!\n')
     if 'bean' in rooms[currentRoom]:
-        print('You see a ' + rooms[currentRoom]['bean'])
+        print('You see a ' + rooms[currentRoom]['bean'],'\n')
     if 'zsword' in rooms[currentRoom]:
-        print('WOW the Zsword, this might come in handy later...')
-    print('=' * 60)
+        print('WOW the Zsword, this might come in handy later...\n')
+    print("=" * sizelist[0])
 
 #starting inventory
 inventory = ['Dragon radar']
@@ -122,7 +129,7 @@ rooms = {
                   'south' : 'Satan city',
                   'north' : 'Kame house',
                   'ball4' : '4 starball',
-                  'desc' : 'Welcome to South city a great place to pass through. So hurry and keep heading south to move on...',
+                  'desc' : 'Welcome to South city a great place to pass through. So keep heading south to move on...',
                },
             'Satan city' : {
                   'north' : 'South city',
@@ -203,34 +210,37 @@ while True:
             del rooms[currentRoom]['ball']
         elif 'ball2' in rooms[currentRoom] and move[1] in rooms[currentRoom]["ball2"]:
             print('''You see a showman offering a Dragon Ball for anyone who can score 80% or above on a Dragon Ball quiz!''')
+            #do they want to play?
             gamestart = input('Will you accept the challenge? (y/n): ')
+            # make the case lower for ease
             if gamestart.lower() == 'n':
                 continue
             else:
+                #start counter for the numbering of the questions
                 counter= 1
 
-                for x in dbz_questions["results"]:
-                    print(f"{counter}. {x['question']}")
-                    counter += 1
-                    all_answers= x["incorrect_answers"]
+                for x in dbz_questions["results"]: #reference the document with questions
+                    print(f"{counter}. {x['question']}") #prints a 1. then the question
+                    counter += 1 #increase counter for each new question
+                    all_answers= x["incorrect_answers"] #start a var to collect all possible answers
                     all_answers.append(x['correct_answer']) #.lower()
-                    random.shuffle(all_answers)
-                    letters= ["A. ","B. ","C. ","D. "]
-                    block= {}
+                    random.shuffle(all_answers) #shuffle the var all answers
+                    letters= ["A. ","B. ","C. ","D. "] #put letters in from of answers
+                    block= {} #initialize empty var
                     for letter,answer in zip(letters,all_answers):#.lower():
                         print(letter, answer)
                         block.update({letter:answer})
                    #print(block)
                     answer= input("\n>")#.lower()
-                    if answer == x['correct_answer']: #add so lettes can be choosen along with words
-                        grade +=1
+                    if answer == x['correct_answer']: #add so letters can be choosen along with words
+                        grade +=1 #this var adds to correct answers to win 4/5
                         print("Correct!")
                         print()
                     else:
                         print("That is not correct. Keep trying!")
-                if grade >= 4:
-                    inventory += [move[1]]
-                    ball_count += 1
+                if grade >= 4: #how they win the game need 4/5 questions right
+                    inventory += [move[1]] #add ball to inventory
+                    ball_count += 1 #increase ball count for end game win
                     print('You got', [grade], "question(s) correct so you win this Dragon Ball! You\'re so smart!\n")
                     print(move[1] + ' grabbed!')
                     #print('you currently have', ball_count,'Dragon ball')
@@ -275,7 +285,7 @@ while True:
             #delete the bean from dict
             del rooms[currentRoom]['bean']
             #display helpful message to mayb use it...
-            print(move[1], 'is now in your hand, might be good to use now')
+            print(move[1]+"\'s", 'are now in your hand, might be good to use one now')
         #otherwise, if the item isn't there to get
         else:
             #tell them they can't get it
@@ -283,16 +293,18 @@ while True:
  
     if move[0] == 'use':
         #check that they are allowed use this item
-        if move[1] == 'sword' and rooms[currentRoom]['buu']:
+        if move[1] == 'sword' and 'zsword' in inventory and rooms[currentRoom]['buu']:
             print('The Z Sword was very affective! This is much easier than the series looks.')
             rooms['Kame house']['bean'] = 'senzu bean'
             #delete the object from the dict
             del rooms[currentRoom]['buu']
-        else:
+            #if you do not have the sword print this message
+        if 'sword' not in inventory:
             print('You don\'t have a weapon strong enough to defeat Buu...')
         if move[1] == 'bean':
             health = 100
-            del rooms['Kame house']['bean']
+            #remove bean from inventory
+            inventory.remove('bean')
             print('You have recovered and your health is back to', health, 'Let\'s get to the lookout quickly...')
         #else:
             #print('You don\'t have a weapon strong enough to defeat Buu...')
