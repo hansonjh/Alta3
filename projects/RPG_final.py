@@ -102,22 +102,22 @@ armory = {'sword' :
 health = 50
 
 def combat():
-    #monster_ID= randint(0,2)
 
     global health, inventory, armory, villian
     round = 1
     buu_health = villain[0]['health'] 
 
-    print(f"Majin Buu appears in the ring! COMBAT STARTS NOW! (in two episodes...)\n")
+    print('Welcome to the tournament grounds! A place where only the best come to fight.')
+    print('Majin Buu appears in the ring! COMBAT STARTS NOW! (in two episodes...)\n')
     while True:
         #print(f"ROUND {round}")
-        print("Player Health: [" + str(health) + "]")
-        print("Majin Buu's Health: [" + str(buu_health) + "]")
+        print('Player Health: [' + str(health) + ']')
+        print('Majin Buu\'s Health: [' + str(buu_health) + ']')
 
         print("Type: RUN, or USE [weapon]")
-        move = input().lower().split() # converts move into a lower-case list to deal with each item in list separately
+        move = input('> ').lower().split() # converts move into a lower-case list to deal with each item in list separately
         buu_damage = sum(dice.roll(villain[0]['damage']))
-        print("\n=========================")
+        print("\n============================================")
 
         if move[0] == 'use':
             if move[1] == 'fist':
@@ -125,45 +125,45 @@ def combat():
                 print(f"You punched Majin Buu for {player_damage} damage!")
             if move[1] in inventory: # checks if weapon is in your inventory
                 player_damage = sum(dice.roll(armory[move[1]]['damage']))
-                print(f"You sliced Majin Buu for {player_damage} damage!")
+                print(f'You sliced Majin Buu for {player_damage} damage!')
                 if move[1] not in inventory:
-                    print(f"There is no {move[1]} in your inventory!")
+                    print(f'There is no {move[1]} in your inventory!')
 
         if move[0] == 'run':
             escape_chance = randint(1,10)
 
             if escape_chance >= 8:
-                print("You make a flawless escape!")
+                print("You escape without him noticing!")
                 break
             if escape_chance >= 5:
                 print("You expose your back as you turn and fly away and Buu takes advantage.")
                 print(f"Buu hits you for {buu_damage} damage!")
                 health -= int(buu_damage)
                 if health >= 1:
-                    print("You managed to escape.")
+                    print('You managed to escape.')
                 #add a place to run to that is not the Tourney grounds    
                     break
                 if health < 1:
-                    print("You have been destroyed.")
-                    print("\nGAME OVER")
+                    print('You have been destroyed.')
+                    print('\nGAME OVER')
                     sys.exit()
             if escape_chance >= 0:
-                print("Majin Buu out-maneuvers you and blast's you! You do not escape.")
+                print('Majin Buu out-maneuvers you and blast\'s you! You can not escape.')
 
         try:
             buu_health -= int(player_damage)
         except:
             pass
         if buu_health <= 0:
-            print(f"Majin buu lies dead. You are victorious!\n")
+            print(f'Majin buu lies dead. You are victorious!\n')
             print('It looks like Buu had a Dragon Ball hiding inside him but it rolled out..')
             rooms['Tourney grounds']['ball'] = '5 starball'
             rooms['Kame house']['bean'] = 'senzu bean'
             del rooms['Tourney grounds']['buu']
             break
 
-        print(f"Buu hits you for {buu_damage} damage!")
-        print ("=========================\n")
+        print(f'Buu hits you for {buu_damage} damage!')
+        print ('=============================================\n')
         round += 1
         health -= int(buu_damage)
 
@@ -279,7 +279,6 @@ while True:
             #set the current room to the new room
             currentRoom = rooms[currentRoom][move[1]]
         #trying to make buu attack
-            print(currentRoom)
             if 'buu' in rooms[currentRoom]:
                 encounter()    
             #there is no way to the new rooms then...
