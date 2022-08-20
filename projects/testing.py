@@ -129,7 +129,7 @@ while True:
   # Defines what the player has to do to win
   if currentRoom == 'Garden' and 'key' in inventory and 'potion' in inventory:
     print('You escaped the house with the secret key and magical potion... YOU WIN!')
-    breakd
+    break
 
   # If a player enters a room with a monster
   elif 'item' in rooms[currentRoom] and 'monster' in rooms[currentRoom]['item']:
