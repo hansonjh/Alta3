@@ -20,4 +20,4 @@ def main():
             print(f"The agriculture in {name} are: {x['agriculture']}")
 
 if __name__ =="__main__":
-main()
+    main()

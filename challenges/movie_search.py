@@ -22,7 +22,7 @@ def main():
             
             if count == 0:
                 poster_url = x['Poster']
-                wget.download(poster_url, '/home/student/static/')
+                wget.download(poster_url, '/Users/jhanson/Downloads/') # change download location as needed, case sensitive
                 print('\nDownloaded a poster for', x['Title'])
                 count += 1
 

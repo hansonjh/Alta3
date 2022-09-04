@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# fact gatherer for all pokemon using PokeAPI website
 
 import requests
 import wget

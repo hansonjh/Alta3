@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""RZFeeser | Alta3 Research
-   Creating a simple dice program utilizing classes."""
+"""Creating a simple dice program utilizing classes."""
 
 # standard library
 from random import randint

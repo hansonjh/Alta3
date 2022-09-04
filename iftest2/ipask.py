@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Alta3 Research | RZFeeser
-   Conditionals - testing if strings test true"""
+"""Conditionals - testing if strings test true"""
 
 ipchk = input("Apply an IP address: ") # this line now prompts the user for input
 

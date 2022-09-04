@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""RZFeeser | Alta3 Research
-   nesting an if-statement inside of a for loop"""
+"""nesting an if-statement inside of a for loop"""
 
 # create a list of strings
 vendors = ["cisco", "juniper", "big_ip", "f5", "arista", "alta3", "zach", "stuart"]

@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""RZFeeser | Alta3 Research
-   Running a simulation with our classes"""
+"""Running a simulation with our classes"""
 
 # import our classes
 from cheatdice import *

@@ -11,7 +11,7 @@ def main():
     """write your code in this function to solve the challenge"""
 
     # write one print function for each list above
-    # get the strings "eyes," "goggles," and "nothing from each
+    # get the strings "eyes," "goggles," and "nothing" from each
     # final output for each print should look like this:
     """My eyes! The goggles do nothing!"""
 

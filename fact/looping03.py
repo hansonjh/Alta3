@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Alta3 Research | RZFeeser
-   For - Looping across range() to generate n UUIDs"""
+"""For - Looping across range() to generate n UUIDs"""
 
 # standard library import
 # allows us to generate UUIDs

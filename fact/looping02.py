@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Alta3 Research | RZFeeser
-   For - Using a file's lines as a source for the for-loop"""
+"""For - Using a file's lines as a source for the for-loop"""
 
 # open file in read mode
 dnsfile = open("dnsservers.txt", "r")

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Alta3 Research | RZFeeser
-   For - a simple for loop"""
+"""For - a simple for loop"""
 
 # for-loop is perfect for stepping through this list
 iplist = ["10.1.1.1", "10.2.2.2", "10.3.3.3"] # list of IP (str)

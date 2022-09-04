@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""RZFeeser | Alta3 Research
-   learning about for logic"""
+"""learning about for logic"""
 
 # create the list called vendors
 vendors = ["cisco", "juniper", "big_ip", "f5", "arista"]
