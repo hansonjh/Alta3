@@ -3,8 +3,9 @@
 #I do need to practice this whole git repo thing to better help me in the future.
 #Self note: Do not edit things from Github webpages. Only use the CLI for practice.
 
-One Paragraph of your project description goes here. Describe what you're trying to do.
-What is the purpose of putting up this repo?
+This repo is my playground. It was made as I went through training and I am now going to use it to continue
+my project work. I might move items out to another repo as time goes on but I am still practicing with
+creating, moving, and versioning in GitHub. Also syncing using VS Code and GitHub Desktop.
 
 ## Getting Started
 
@@ -20,7 +21,9 @@ What things are needed to install the software and how to install them. For now,
 ## Built With
 
 * [Python](https://www.python.org/) - The coding language used
+* VS Code
+* GitHub Desktop
 
 ## Authors
 
-* **Your Name** - *Initial work* - [YourWebsite](https://example.com/)
+* **J Hanson** - *This repo is where it started* - (http://wvroadrunners.org/) is a non profit item I work on. Not related to Python though. 

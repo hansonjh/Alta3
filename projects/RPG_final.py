@@ -3,6 +3,10 @@
 #DBZ game play
 #FINAL PROJECT
 # Created by Dalton M. and J H.
+#TO-DO
+# Create a map as you move through the map
+# Expand map
+# 
 
 # =================================== IMPORTS ================================================================
 from random import randint
@@ -188,7 +192,7 @@ rooms = {
                   'south' : 'Kame house',
                   'ball'  : '1 starball',
                   'dir'   : 'From here you can go north and south.',
-                  'desc'  : "North City, also known as Metro North, is one of the large metropolis capitals of Earth.\nIt is surrounded by mountains and a forest.\nDr. Gero\'s Laboratory is in the mountains south of the city.",
+                  'desc'  : "North City, also known as Metro North, is one of the large metropolis capitals of Earth.\nIt is surrounded by mountains and a forest.\nDr. Gero's Laboratory is in the mountains south of the city.",
                 },
             'The lookout': {
                   'south' : 'North city',

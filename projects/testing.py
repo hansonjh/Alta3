@@ -67,7 +67,7 @@ def itemfunc(item):
         print("You have healed 10 health!!")
         inventory.remove("potion")
     if item == "candy":
-        print("Eating the candy has helped you feel better so you can think better to escape")
+        print("Eating the candy gave you a boost of energy to help you escape.")
         inventory.remove("cookie")
 
 
