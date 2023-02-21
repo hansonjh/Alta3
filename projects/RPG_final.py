@@ -59,7 +59,7 @@ Commands:
   quit                        
 ''')
 
-# ====================================Status show after each command==========================================
+# ==================================== Status show after each command ==========================================
 
 def showStatus():
     #print the player's current status
@@ -103,7 +103,7 @@ health = 50
 def combat():
     
     #import vars from above outside the DEF
-    global health, inventory, armory, villian, currentRoom
+    global health, inventory, armory, villain, currentRoom
     round = 1
     buu_health = villain[0]['health'] 
 
@@ -176,7 +176,7 @@ def encounter():
 
 
 # ======================== DICTIONARIES / LISTS =======================================================
-#a dictionary linking a room to other rooms, also shows available items and objects
+# a dictionary linking a room to other rooms, also shows available items and objects
 rooms = {
 
             'Kame house' : {
@@ -426,7 +426,7 @@ while True:
 
      ## Define how a player can win
     if currentRoom == 'The lookout' and ball_count == 7 and 'buu' not in rooms['Tourney grounds']:
-        wish = input('***You summon Shenron***\nShenron roars! TELL ME YOUR WISH... ') #type your wish here
+        wish = input('***You summon Shenron***\nShenron roars! "TELL ME YOUR WISH"... ') #type your wish here
         print("That is out of my power, but I can can give these project makers passing score!")
         break
     
